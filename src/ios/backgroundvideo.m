@@ -33,8 +33,8 @@
 
     //make the view
     CGRect viewRect = CGRectMake(
-                                 1,
-                                 1,
+                                 0,
+                                 0,
                                  self.webView.superview.frame.size.width,
                                  self.webView.superview.frame.size.height
                                  );
@@ -44,14 +44,14 @@
     self.parentView.backgroundColor = [UIColor clearColor];
     self.view = [[UIView alloc] initWithFrame: self.parentView.bounds];
     [self.parentView addSubview: view];
-    view.alpha = 0.2f;
+    view.alpha = 1;
     self.parentView.userInteractionEnabled = NO;
 
     //camera stuff
 
     //Capture session
     session = [[AVCaptureSession alloc] init];
-    [session setSessionPreset:AVCaptureSessionPresetLow];
+    [session setSessionPreset:AVCaptureSessionPresetPhoto];
 
     //Get the front camera and set the capture device
     AVCaptureDevice *inputDevice = [self getCamera: self.camera];
@@ -86,11 +86,11 @@
 
     //preview view
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-    [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
 
     CALayer *rootLayer = [[self view] layer];
     [rootLayer setMasksToBounds:YES];
-    [self.previewLayer setFrame:CGRectMake(-70, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
+    [self.previewLayer setFrame:CGRectMake(-90, 0, rootLayer.bounds.size.height, rootLayer.bounds.size.height)];
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
 
     //go
